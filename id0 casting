@@ -1,0 +1,41 @@
+https://www.3dbrew.org/wiki/Nand/private/movable.sed
+
+Id0 is the most significant half of the sha256 of KeyY (0x110:0x120 of movable.sed)
+The byte order is reversed for each DWORD
+
+Every system format (to include the system formats performed as part of a system transfer) increases the 9th byte ( [8] of a 0 base array) by 1.
+
+to cast previous or future id0s from a given KeyY, increase or decrease the 9th byte in the keyy then generate the id0.
+
+Sample Python Code to generate 5 previous, current, and 5 After current keyy:
+
+
+
+import struct
+import binascii
+
+
+def tohex(b) -> str:
+    return binascii.hexlify(bytearray(b)).decode('ascii')
+
+rangeSide = 5
+
+f=open("movable.sed","rb")
+f.seek(0x110,0)
+data=bytearray(f.read(0x10))
+f.close()
+data[8]=data[8]-rangeSide
+for x in range(rangeSide*2+1):
+    sha=sha256(data).digest()
+    first = bytearray(sha[:4])
+    second = bytearray(sha[4:8])
+    third = bytearray(sha[8:12])
+    last = bytearray(sha[12:16])
+    first.reverse();
+    second.reverse();
+    third.reverse();
+    last.reverse();
+# Print the current and prep for next
+    print("Offset "+str(x-rangeSide)+": "+tohex(first)+tohex(second)+tohex(third)+tohex(last))
+    data[8]=data[8]+1
+
