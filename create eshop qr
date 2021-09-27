@@ -1,0 +1,15 @@
+first you must find the nsuid for the app. often times this can be done using the game's eshop page on the nintendo website or by using a CDN database 
+
+lets use Netflix for example. i am going to do this the hard way (the easy way is to pull it up in a database). 
+i open the netflix page on eshop. https://www.nintendo.com/games/detail/netflix-3ds
+at the top i see a "free download" link. this will attempt to "purchase" this free app using my account, i will copy this link:
+https://ec.nintendo.com/title_purchase_confirm?title=50010000007057
+see the title there? that isnt a title id, that is a nsuid.
+
+i can create a URL for eshop by adding ESHOP:// (case sensitive) to the beginning: ESHOP://50010000007057
+
+now i can use any QR code generator to make a qr code for that url to be able to use it to go to the eshop page.
+
+note
+if using a cdn database, you might see the line <nsuid>50010000007057</nsuid> (if xml) or it would be listed similarly in json. 
+that makes finding the nsuid a bit easier.
