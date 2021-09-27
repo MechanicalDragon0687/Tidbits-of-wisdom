@@ -1,0 +1,9 @@
+Download the scripts at https://github.com/yellows8/boot9_tools
+split your boot9.bin file into 0x8000 sections. the 2nd section is the boot9_protected.bin you will need
+run `./boot9_crypt_otp.sh boot9_protected.bin otp.bin otp_dec.bin decrypt retail`
+
+boot9_protected is the protected section of boot9
+otp.bin is the encrypted otp
+otp_dec.bin is the output file once decrypted
+
+https://www.3dbrew.org/wiki/OTP_Registers has info about the OTP
