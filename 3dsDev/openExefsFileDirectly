@@ -1,3 +1,5 @@
+// Released under the MIT License (in case you need it)
+
 //	openExefsFileDirectly
 //  Author: MechDragon
 //  Opens a file from exefs directly given a title id, storage location, and filename (limited to 8 chars)
