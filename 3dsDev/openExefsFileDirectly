@@ -1,0 +1,14 @@
+//	openExefsFileDirectly
+//  Author: MechDragon
+//  Opens a file from exefs directly given a title id, storage location, and filename (limited to 8 chars)
+//  known filenames: icon, .code, logo, banner
+Result openExefsFileDirectly(Handle* out, u64 tid, u8 mediatype, char *file) {
+	if(!out)return -1;
+	char path[9]={0};
+	strncpy(path,file,8);
+	u32 archivePath[] = {tid & 0xFFFFFFFF, (tid >> 32) & 0xFFFFFFFF, mediatype, 0x00000000};
+	u32 filePath[] = {0x00000000, 0x00000000, 0x00000002, 0x0, 0x0};
+	memcpy(&filePath[3],path,4);
+	memcpy(&filePath[4],path+4,4);
+	return FSUSER_OpenFileDirectly(out, ARCHIVE_SAVEDATA_AND_CONTENT, (FS_Path){PATH_BINARY, 0x10, (u8*)archivePath}, (FS_Path){PATH_BINARY, 0x14, (u8*)filePath}, FS_OPEN_READ, 0);
+}
